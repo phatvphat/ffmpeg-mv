@@ -1,0 +1,38 @@
+<meta charset="utf-8" />
+<link rel="stylesheet" href="/plyr.css" />
+<!-- <video id="player" playsinline controls width="100%" data-plyr-config='{ "debug": false }'>
+    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" />
+</video> -->
+<video id="player" playsinline controls data-plyr-config='{ "debug": false }'></video>
+<script type="application/javascript" src="plyr.js"></script>
+<script>
+    function request(url) { return new Promise((resolve, reject) => { fetch(url, { mode: "cors", headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.47 Safari/537.36' } }).then(function (response) { response.text().then(function (data) { resolve(data); }); }); }); }
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) { hash = hashes[i].split('='); vars.push(hash[0]); vars[hash[0]] = hash[1]; }
+        return vars;
+    }
+    var url = decodeURIComponent(getUrlVars()['url']);
+    // console.log(url);
+    !async function () {
+        if (url.includes('.mp4')) { var a = { download: { hd: url.replace('scontent.xx.fbcdn.net', 'scontent.fsgn2-1.fna.fbcdn.net') }, thumb: undefined, title: undefined, error: null }; }
+        else { var a = await request(`/getlink/${encodeURIComponent(url)}`); a = JSON.parse(a); url = (a.download.hd || a.download.sd).replace('scontent.xx.fbcdn.net', 'scontent.fsgn2-1.fna.fbcdn.net'); }
+        // console.log(a);
+        var player = new Plyr('#player', {
+            debug: false, ratio: "4:3", previewThumbnails: { enabled: false, src: a.thumb },
+            controls: [
+                'play-large',
+                // 'restart',
+                // 'rewind',
+                'play',
+                // 'fast-forward',
+                'progress', 'current-time',
+                // 'duration',
+                'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'download', 'fullscreen',
+            ]
+        });
+        player.source = { type: 'video', title: a.title, sources: [{ src: url, type: 'video/mp4' }], poster: a.thumb };
+        // player.download;
+    }();
+</script>

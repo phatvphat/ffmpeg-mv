@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo Video Player</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/plyr.css" />
+</head>
+
+<body>
+    <video id="player" playsinline controls data-plyr-config='{ "debug": false }'></video>
+    <script type="application/javascript" src="/plyr.js"></script>
+    <script>
+        !async function () {
+            var player = new Plyr('#player', {
+                debug: false, ratio: "4:3", previewThumbnails: { enabled: false, src: undefined },
+                controls: [
+                    'play-large',
+                    // 'restart',
+                    // 'rewind', 'fast-forward',
+                    'play',
+                    'progress', 'current-time',
+                    // 'duration',
+                    'mute', 'volume', 'captions', 'settings', 'airplay', 'fullscreen',
+                ]
+            });
+            player.source = {
+                type: 'video', title: 'Một video định dạng WebM', sources: [{ src: '/video.webm', type: 'video/webm' }], tracks: [
+                    { kind: 'captions', label: 'English', srclang: 'en', src: '/sub.vtt', default: true }
+                ], poster: undefined
+            };
+            // player.download;
+        }();
+    </script>
+</body>
+
+</html>
