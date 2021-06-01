@@ -79,6 +79,7 @@ app.get('/:v', async function (req, res) {
 		});
 	} else { res.send({}); }
 });
+app.all('/', async function (req, res) { res.send({}); });
 
 app.enable('trust proxy');
 app.listen(port);
