@@ -1,5 +1,5 @@
 {
-  "name": "ffmpeg-nodejs",
+  "name": "ffmpeg-mv",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,9 @@
   "author": "PvP",
   "license": "ISC",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-useragent": "^1.0.13",
     "fluent-ffmpeg": "^2.1.2",
@@ -17,6 +20,6 @@
     "http": "0.0.0",
     "stream": "^0.0.2",
     "youtube-audio-stream": "^0.3.5",
-    "ytdl-core": "^4.8.2"
+    "ytdl-core": "^4.9.1"
   }
 }
